@@ -1,0 +1,29 @@
+.login {
+    display: grid;
+    grid-template-areas: ". title title ."
+                         ". user user ."
+                         ". pass pass ."
+                         ". btn btn ."
+                         "alert alert alert alert";
+    grid-gap: 1rem;
+}
+
+.title {
+    grid-area: title;
+}
+
+.user {
+    grid-area: user;
+}
+
+.pass {
+    grid-area: pass;
+}
+
+.btn {
+    grid-area: btn;
+}
+
+.alerta {
+    grid-area: alert;
+}

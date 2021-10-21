@@ -1,0 +1,14 @@
+.modal {
+    width: 52rem;
+    height: 22rem;
+    background-color: white;
+    z-index: 1001;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 2px 2px 2px 2px rgb(148, 144, 144);
+    overflow: hidden;
+}
