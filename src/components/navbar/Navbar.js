@@ -39,7 +39,7 @@ const Navbar = (props) => {
         )}
         {props.isLoggedIn && (
           <li>
-            <Button onClick={showSignupHandler, logoutHandler} variant="contained">
+            <Button onClick={logoutHandler} variant="contained">
               Logout
             </Button>
           </li>

@@ -11,10 +11,9 @@ import { useDispatch } from "react-redux";
 import { listActions } from "./store/listSlice";
 import { authActions } from "./store/auth-context";
 
-
-
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const userId = localStorage.getItem("userId");
   const dispatch = useDispatch();
 
   const [signupShow, setSignupShow] = useState(false);
@@ -23,7 +22,7 @@ function App() {
   const closeModalHandler = () => {
     setSignupShow(false);
     setLoginShow(false);
-  };  
+  };
 
   const testSign = signupShow && !isLoggedIn;
   const testLogin = loginShow && !isLoggedIn;
@@ -36,15 +35,13 @@ function App() {
     const remainingTime = expirationTime - currentTime;
 
     console.log(remainingTime + " milliseconds to Logout...");
-  
+
     return remainingTime;
   };
 
-
-    setTimeout(() => {
-      dispatch(authActions.logout())
-    }, calculateRemainingTime())
-
+  setTimeout(() => {
+    dispatch(authActions.logout());
+  }, calculateRemainingTime());
 
   ///////////////////////////////////////////////////////////
 
@@ -54,15 +51,19 @@ function App() {
     )
       .then((response) => response.json())
       .then((data) => {
-        let emptyList = [];
+        let localList = [];
 
-        for (const [key, value] of Object.entries(data)) {
-          emptyList.push({ text: value.text, id: value.id });
+        if (data != null) {
+          for (const value of Object.values(data)) {
+            if (value.userId === userId) {
+              localList.push({ text: value.text, id: value.id });
+            }
+          }
         }
 
-        dispatch(listActions.toggleList(emptyList));
+        dispatch(listActions.toggleList(localList));
       });
-  }, [dispatch]);
+  }, [dispatch, userId]);
 
   return (
     <div className="App">

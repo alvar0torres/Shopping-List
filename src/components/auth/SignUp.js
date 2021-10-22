@@ -9,6 +9,7 @@ import classes from "./SignUp.module.css";
 const SignUp = (props) => {
   const emailInput = useRef();
   const passInput = useRef();
+  const usernameInput = useRef();
   const [error, setError] = useState(null);
 
   const onSubmitHandler = (event) => {
@@ -20,8 +21,11 @@ const SignUp = (props) => {
       returnSecureToken: true,
     };
 
+    const username = usernameInput.current.value;
+
     emailInput.current.value = "";
     passInput.current.value = "";
+    usernameInput.current.value = "";
 
     fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDOVo9o852i-1OwehsPZMMoHqOFMxfjQyk",
@@ -40,6 +44,28 @@ const SignUp = (props) => {
           console.log(data.error.message);
           setError(data.error.message);
         }
+
+        const userData = { userId: data.localId, username: username };
+
+        console.log("usertoken is: " + JSON.stringify(userData));
+
+        return fetch(
+          `https://shopping-list-f3bcd-default-rtdb.europe-west1.firebasedatabase.app/users.json`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userData),
+          }
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Success:", data);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
       })
       .catch((error) => {
         console.log(error);
@@ -59,6 +85,14 @@ const SignUp = (props) => {
           variant="outlined"
           type="email"
           inputRef={emailInput}
+        />
+        <TextField
+          className={classes.username}
+          id="outlined-basic"
+          label="Username"
+          variant="outlined"
+          type="text"
+          inputRef={usernameInput}
         />
         <TextField
           className={classes.pass}

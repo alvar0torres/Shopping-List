@@ -2,6 +2,7 @@
     display: grid;
     grid-template-areas: ". title title ."
                          ". user user ."
+                         ". username username ."
                          ". pass pass ."
                          ". btn btn ."
                          "alert alert alert alert";
@@ -26,4 +27,8 @@
 
 .alerta {
     grid-area: alert;
+}
+
+.username {
+    grid-area: username;
 }

@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { listActions } from "../../store/listSlice";
 import TextField from "@mui/material/TextField";
@@ -7,6 +8,7 @@ import classes from "./Input.module.css";
 
 const Input = () => {
   const dispatch = useDispatch();
+  const userId = useSelector((state) => state.auth.userId);
 
   let inputRef = useRef();
 
@@ -15,7 +17,7 @@ const Input = () => {
 
     let enteredItem = inputRef.current.value;
 
-    const data = { text: enteredItem, id: Date.now() };
+    const data = { text: enteredItem, id: Date.now(), userId: userId };
 
     inputRef.current.value = "";
 
@@ -35,8 +37,6 @@ const Input = () => {
       .catch((error) => {
         console.error("Error:", error);
       });
-
-    
   };
 
   return (

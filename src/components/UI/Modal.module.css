@@ -1,6 +1,6 @@
 .modal {
     width: 52rem;
-    height: 22rem;
+    padding-bottom: 2rem;
     background-color: white;
     z-index: 1001;
     position: absolute;

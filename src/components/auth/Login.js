@@ -42,8 +42,10 @@ const Login = (props) => {
       .then((data) => {
         console.log(data);
         if (data.idToken) {
-          console.log("tokenId is..." + data.idToken);
-          dispatch(authActions.login(data.idToken));
+
+          console.log("the UID of the user is: " + data.localId);
+    
+          dispatch(authActions.login({ token: data.idToken, userId: data.localId }));
         }
         if (data.error) {
           console.log(data.error.message);
